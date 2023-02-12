@@ -22,9 +22,10 @@ class FileStorage:
 
     def save(self):
         """ serializes __objects to the JSON file (path: __file_path)"""
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as fl:
-            obj = {key: value.to_dict() for key, value in FileStorage.__objects.items()}
-            json.dump(obj, fl)
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as myfile:
+            obj = {key: value.to_dict() 
+            for key, value in FileStorage.__objects.items()}
+            json.dump(obj, myfile)
 
     def classes(self):
         """Returns a dictionary of valid classes and their references"""
@@ -55,8 +56,8 @@ class FileStorage:
         """
         if not os.path.isfile(FileStorage.__file_path):
             return
-        with open(FileStorage.__file_path, "r", encoding="utf-8") as fl:
-            obj_dict = json.load(fl)
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as myfile:
+            obj_dict = json.load(myfile)
             obj_dict = {key: self.classes()[value["__class__"]](**value)
                         for key, value in obj_dict.items()}
             FileStorage.__objects = obj_dict
@@ -89,8 +90,8 @@ class FileStorage:
                       "number_bathrooms": int,
                       "max_guest": int,
                       "price_by_night": int,
-                      "latitude": float,
-                      "longitude": float,
+                      "latitude": myfileoat,
+                      "longitude": myfileoat,
                       "amenity_ids": list},
             "Review":
             {"place_id": str,
