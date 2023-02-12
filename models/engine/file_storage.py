@@ -6,6 +6,7 @@ import os
 from datetime import datetime
 # from models.base_model import BaseModel
 
+
 class FileStorage:
     """Class for storing and retrieving data"""
     __file_path = "file.json"
@@ -18,12 +19,12 @@ class FileStorage:
     def new(self, obj):
         """sets in __objects the `obj` with key <obj class name>.id"""
         self.__objects["{}.{}".format(obj.__class__.__name__, obj.id)] = obj
-        
+
     def save(self):
         """ serializes __objects to the JSON file (path: __file_path)"""
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as myfile:
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as fl:
             obj = {key: value.to_dict() for key, value in FileStorage.__objects.items()}
-            json.dump(obj, myfile)
+            json.dump(obj, fl)
 
     def classes(self):
         """Returns a dictionary of valid classes and their references"""
@@ -54,12 +55,11 @@ class FileStorage:
         """
         if not os.path.isfile(FileStorage.__file_path):
             return
-        with open(FileStorage.__file_path, "r", encoding="utf-8") as myfile:
-            obj_dict = json.load(myfile)
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as fl:
+            obj_dict = json.load(fl)
             obj_dict = {key: self.classes()[value["__class__"]](**value)
                         for key, value in obj_dict.items()}
             FileStorage.__objects = obj_dict
-
 
     def attributes(self):
         """Returns the valid attributes and their types for classname"""
