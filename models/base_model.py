@@ -7,9 +7,7 @@ from models import storage
 
 
 class BaseModel:
-
     """Class from which all other classes will inherit"""
-
     def __init__(self, *args, **kwargs):
         """Initializes instance attributes
         Args:
@@ -40,7 +38,6 @@ class BaseModel:
         """updates the public instance attribute updated_at"""
         self.updated_at = datetime.now()
         storage.save()
-
 
     def to_dict(self):
         """Returns dictionary representation of BaseModel"""
